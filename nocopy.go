@@ -93,6 +93,9 @@ type Reader interface {
 	//
 	Slice(n int) (r Reader, err error)
 
+	// SliceInto is a faster implementation of Slice when the Reader would be reused
+	SliceInto(n int, r Reader) error
+
 	// Release the memory space occupied by all read slices. This method needs to be executed actively to
 	// recycle the memory after confirming that the previously read data is no longer in use.
 	// After invoking Release, the slices obtained by the method such as Next, Peek, Skip will

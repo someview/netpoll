@@ -159,6 +159,13 @@ func (c *connection) Slice(n int) (r Reader, err error) {
 	return c.inputBuffer.Slice(n)
 }
 
+func (c *connection) SliceInto(n int, r Reader) error {
+	if err := c.waitRead(n); err != nil {
+		return err
+	}
+	return c.inputBuffer.SliceInto(n, r)
+}
+
 // Len implements Connection.
 func (c *connection) Len() (length int) {
 	return c.inputBuffer.Len()

@@ -36,6 +36,10 @@ type zcReader struct {
 	buf *LinkBuffer
 }
 
+func (r *zcReader) SliceInto(n int, reader Reader) error {
+	return r.buf.SliceInto(n, reader)
+}
+
 // Next implements Reader.
 func (r *zcReader) Next(n int) (p []byte, err error) {
 	if err = r.waitRead(n); err != nil {
